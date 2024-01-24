@@ -20,3 +20,8 @@ aliyun:
     access-key-id: LTAI5tP8GcouxvDHVwcowNKV
     access-key-secret: SgGHUCKwDBskThle5dsUbdohkxescK
     bucket-name: pic-file-bucket
+
+#spring事务管理日志
+logging:
+  level:
+    org.springframework.jdbc.support.JdbcTransactionManager: debug

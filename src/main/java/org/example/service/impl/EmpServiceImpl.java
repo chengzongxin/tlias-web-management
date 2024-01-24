@@ -65,4 +65,9 @@ public class EmpServiceImpl implements EmpService {
     public Emp login(Emp emp) {
         return empMapper.login(emp);
     }
+
+    @Override
+    public void deleteByDeptId(Integer id) {
+        empMapper.deleteByDeptId(id);
+    }
 }
