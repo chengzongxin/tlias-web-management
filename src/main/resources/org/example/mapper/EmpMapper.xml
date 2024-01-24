@@ -22,6 +22,7 @@
         <include refid="commonSelect"/>
     </select>
 
+<!--    select * from emp inner join mybatis.dept d on d.id = emp.dept_id where emp.id = 1 -->
     <select id="list" resultType="org.example.pojo.Emp">
         select *
         from emp
