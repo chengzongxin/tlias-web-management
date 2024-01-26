@@ -2,7 +2,10 @@ package org.example.mapper;
 
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Select;
 import org.example.pojo.OperateLog;
+
+import java.util.List;
 
 @Mapper
 public interface OperateLogMapper {
@@ -12,4 +15,8 @@ public interface OperateLogMapper {
             "values (#{operateUser}, #{operateTime}, #{className}, #{methodName}, #{methodParams}, #{returnValue}, #{costTime});")
     public void insert(OperateLog log);
 
+//    @Select("select * from operate_log")
+//    @Select("select * from operate_log left join emp e on e.id = operate_log.operate_user")
+    @Select("select operate_user, operate_time, class_name, method_name, method_params, return_value, cost_time, username, name as operate_user_name from operate_log left join emp e on e.id = operate_log.operate_user  order by operate_time desc")
+    List<OperateLog> getLog();
 }

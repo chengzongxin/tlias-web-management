@@ -62,7 +62,7 @@ public class LogAspect {
 
 
         //记录操作日志
-        OperateLog operateLog = new OperateLog(null,operateUser,operateTime,className,methodName,methodParams,returnValue,costTime);
+        OperateLog operateLog = new OperateLog(null,operateUser,null,operateTime,className,methodName,methodParams,returnValue,costTime);
         operateLogMapper.insert(operateLog);
 
         log.info("AOP记录操作日志: {}" , operateLog);
