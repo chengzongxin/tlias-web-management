@@ -1,10 +1,7 @@
 package org.example.controller;
 
 import org.example.mapper.ImageMapper;
-import org.example.pojo.Dept;
-import org.example.pojo.Image;
-import org.example.pojo.Result;
-import org.example.pojo.UploadImage;
+import org.example.pojo.*;
 import org.example.utils.AliOSSUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,6 +11,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
+import java.util.List;
 
 //@Slf4j
 @RestController
@@ -43,17 +41,22 @@ public class UploadController {
 
         //调用阿里云OSS工具类进行文件上传
         String url = aliOSSUtils.upload(file);
+
+        int size = (int) file.getSize();
+
+        Image image = new Image();
+        image.setUrl(url);
+        image.setSize(size);
+        image.setCreateTime(LocalDateTime.now());
+        imageMapper.insert(image);
 //        log.info("文件上传完成,文件访问的url: {}", url);
-//        Image image = new Image(null,null,url,0,LocalDateTime.now());
-//        UploadImage uploadImage = new UploadImage(null,null,url,0,LocalDateTime.now());
-//        imageMapper.insert(uploadImage);
-        imageMapper.insert(url);
-
-//        Dept dept = new Dept(null,"666",null,null);
-//        dept.setCreateTime(LocalDateTime.now());
-//        dept.setUpdateTime(LocalDateTime.now());
-//        imageMapper.add(dept);
-
         return Result.success(url);
+    }
+
+    @GetMapping("imageList")
+    public Result imageList() {
+        List<Image> list = imageMapper.list();
+//        PageBean pageBean = empService.page(page, pageSize, name,gender, begin, end);
+        return Result.success(list);
     }
 }

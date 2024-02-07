@@ -3,15 +3,22 @@ package org.example;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
+import org.example.mapper.ImageMapper;
+import org.example.pojo.Image;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.UUID;
 
-//@SpringBootTest
+@SpringBootTest
 class TliasWebManagementApplicationTests {
+    @Autowired
+    ImageMapper imageMapper;
+
     @Test
     public void testUuid(){
         for (int i = 0; i < 1000; i++) {
@@ -47,5 +54,13 @@ class TliasWebManagementApplicationTests {
                 .parseClaimsJws("eyJhbGciOiJIUzI1NiJ9.eyJuYW1lIjoidG9tIiwiaWQiOjEsImV4cCI6MTcwNjA4MDI0N30.IewRSz4oAOlCssruWbb4jMztX9LbRZC-kTkgY6Jh_g8")
                 .getBody();
         System.out.println(claims);
+    }
+
+    @Test
+    public void testInsertImage(){
+        Image image = new Image();
+        image.setUrl("http://www.bilibili.com");
+        image.setCreateTime(LocalDateTime.now());
+        imageMapper.insert(image);
     }
 }
