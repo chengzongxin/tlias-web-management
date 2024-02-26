@@ -26,6 +26,10 @@ public class LoginCheckInterceptor implements HandlerInterceptor {
             return true;
         }
 
+        if (url.contains("upload")) {
+            return true;
+        }
+
         //3.获取请求头中的令牌（token）。
         String jwt = req.getHeader("token");
 

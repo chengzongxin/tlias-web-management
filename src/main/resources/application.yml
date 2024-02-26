@@ -1,9 +1,9 @@
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/test
+    url: jdbc:mysql://localhost:3306/mybatis
     username: root
-    password: 1234
+    password: cheng1122
   servlet:
     multipart:
       max-file-size: 10MB
@@ -16,10 +16,10 @@ mybatis:
 
 aliyun:
   oss:
-    endpoint: oss-cn-beijing.aliyuncs.com
-    access-key-id: LTAI5tP8GcouxvDHVwcowNKV
-    access-key-secret: SgGHUCKwDBskThle5dsUbdohkxescK
-    bucket-name: pic-file-bucket
+    endpoint: oss-cn-shenzhen.aliyuncs.com
+    access-key-id: LTAI5t6ah4EFn7phV1UV3Yey
+    access-key-secret: DEJNtcIs5dpblzKhu0vq3CxiCl3jkD
+    bucket-name: one-pic-bucket
 
 #spring事务管理日志
 logging:
