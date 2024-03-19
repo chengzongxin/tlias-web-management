@@ -6,4 +6,8 @@
     <insert id="insert">
         insert into dynamic(imgUrl, content) VALUES (#{imgUrl}, #{content})
     </insert>
+    <select id="list">
+        select *
+        from dynamic;
+    </select>
 </mapper>

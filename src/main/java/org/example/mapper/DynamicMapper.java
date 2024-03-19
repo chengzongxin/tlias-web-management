@@ -6,4 +6,6 @@ import org.example.pojo.Dynamic;
 @Mapper
 public interface DynamicMapper {
     void insert(Dynamic dynamic);
+
+    Dynamic[] list();
 }

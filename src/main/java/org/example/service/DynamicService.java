@@ -4,4 +4,6 @@ import org.example.pojo.Dynamic;
 
 public interface DynamicService {
     void insert(Dynamic dynamic);
+
+    Dynamic[] list();
 }

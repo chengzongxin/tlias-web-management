@@ -14,4 +14,9 @@ public class DynamicServiceImpl implements DynamicService {
     public void insert(Dynamic dynamic) {
         dynamicMapper.insert(dynamic);
     }
+
+    @Override
+    public Dynamic[] list() {
+        return dynamicMapper.list();
+    }
 }
