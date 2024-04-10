@@ -26,7 +26,7 @@ public class LoginCheckInterceptor implements HandlerInterceptor {
             return true;
         }
 
-        if (url.contains("upload")) {
+        if (url.contains("upload")||url.contains("wgt")||url.contains("png")||url.contains("index")) {
             return true;
         }
 

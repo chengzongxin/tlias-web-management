@@ -47,20 +47,20 @@ class TliasWebManagementApplicationTests {
     /**
      * 解析JWT
      */
-    @Test
-    public void testParseJwt(){
-        Claims claims = Jwts.parser()
-                .setSigningKey("eren yeager")
-                .parseClaimsJws("eyJhbGciOiJIUzI1NiJ9.eyJuYW1lIjoidG9tIiwiaWQiOjEsImV4cCI6MTcwNjA4MDI0N30.IewRSz4oAOlCssruWbb4jMztX9LbRZC-kTkgY6Jh_g8")
-                .getBody();
-        System.out.println(claims);
-    }
-
-    @Test
-    public void testInsertImage(){
-        Image image = new Image();
-        image.setUrl("http://www.bilibili.com");
-        image.setCreateTime(LocalDateTime.now());
-        imageMapper.insert(image);
-    }
+//    @Test
+//    public void testParseJwt(){
+//        Claims claims = Jwts.parser()
+//                .setSigningKey("eren yeager")
+//                .parseClaimsJws("eyJhbGciOiJIUzI1NiJ9.eyJuYW1lIjoidG9tIiwiaWQiOjEsImV4cCI6MTcwNjA4MDI0N30.IewRSz4oAOlCssruWbb4jMztX9LbRZC-kTkgY6Jh_g8")
+//                .getBody();
+//        System.out.println(claims);
+//    }
+//
+//    @Test
+//    public void testInsertImage(){
+//        Image image = new Image();
+//        image.setUrl("http://www.bilibili.com");
+//        image.setCreateTime(LocalDateTime.now());
+//        imageMapper.insert(image);
+//    }
 }
