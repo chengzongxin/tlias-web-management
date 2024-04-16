@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -58,5 +59,22 @@ public class UploadController {
         List<Image> list = imageMapper.list();
 //        PageBean pageBean = empService.page(page, pageSize, name,gender, begin, end);
         return Result.success(list);
+    }
+
+    @PostMapping("/localupload")
+    public String localUpload(MultipartFile file) {
+        if (file.isEmpty()) {
+            return "Please select a file to upload.";
+        }
+        try {
+            byte[] bytes = file.getBytes();
+            String uploadDir = "/Users/joe.cheng/Downloads/";
+            File uploadedFile = new File(uploadDir + file.getOriginalFilename());
+            file.transferTo(uploadedFile);
+            return "File uploaded successfully!";
+        } catch (IOException e) {
+            e.printStackTrace();
+            return "File upload failed!";
+        }
     }
 }
