@@ -15,11 +15,13 @@ import java.nio.file.Paths;
 
 @RestController
 public class DownloadController {
-    private static final String FILE_DIRECTORY = "/Users/joe.cheng/Downloads/";
+    private static final String USER_HOME = System.getProperty("user.home");
+    private static final String WGT_FILE_DIRECTORY = USER_HOME + "/Documents/Jenkins/OutputWgt/";
+
     @GetMapping("/download/{fileName:.+}")
     @ResponseBody
     public ResponseEntity<Resource> downloadFile(@PathVariable String fileName) {
-        Path filePath = Paths.get(FILE_DIRECTORY).resolve(fileName).normalize();
+        Path filePath = Paths.get(WGT_FILE_DIRECTORY).resolve(fileName).normalize();
         try {
             Resource resource = new org.springframework.core.io.UrlResource(filePath.toUri());
             if (resource.exists() || resource.isReadable()) {
