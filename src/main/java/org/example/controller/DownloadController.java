@@ -16,7 +16,7 @@ import java.nio.file.Paths;
 @RestController
 public class DownloadController {
     private static final String USER_HOME = System.getProperty("user.home");
-    private static final String WGT_FILE_DIRECTORY = USER_HOME + "/Documents/Jenkins/OutputWgt/";
+    private static final String WGT_FILE_DIRECTORY = USER_HOME + "/Downloads/";
 
     @GetMapping("/download/{fileName:.+}")
     @ResponseBody

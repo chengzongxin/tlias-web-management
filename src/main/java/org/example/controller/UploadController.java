@@ -17,6 +17,10 @@ import java.util.List;
 //@Slf4j
 @RestController
 public class UploadController {
+
+    private static final String USER_HOME = System.getProperty("user.home");
+    private static final String DOWNLOADS_DIR = USER_HOME + "/Downloads/";
+
     @Autowired
     private AliOSSUtils aliOSSUtils;
 
@@ -68,8 +72,7 @@ public class UploadController {
         }
         try {
             byte[] bytes = file.getBytes();
-            String uploadDir = "/Users/joe.cheng/Downloads/";
-            File uploadedFile = new File(uploadDir + file.getOriginalFilename());
+            File uploadedFile = new File(DOWNLOADS_DIR + file.getOriginalFilename());
             file.transferTo(uploadedFile);
             return "File uploaded successfully!";
         } catch (IOException e) {
