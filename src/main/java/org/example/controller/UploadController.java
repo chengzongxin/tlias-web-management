@@ -113,17 +113,18 @@ public class UploadController {
                 BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
                 String line;
 
-                Dynamic dynamic = new Dynamic();
+
                 while ((line = reader.readLine()) != null) {
                     System.out.println(line);
                     String[] split = line.split(" ");
                     if (line.contains("https://pic.to8to.com")) {
+                        Dynamic dynamic = new Dynamic();
                         dynamic.setContent(split[0]);
                         dynamic.setImgUrl(split[1]);
                         res.add(dynamic);
                     }
                 }
-                dynamicService.insert(dynamic);
+//                dynamicService.insert(dynamic);
 
                 // 等待Python脚本执行完成
                 int exitCode = process.waitFor();
