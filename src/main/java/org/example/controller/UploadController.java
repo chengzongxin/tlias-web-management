@@ -2,6 +2,7 @@ package org.example.controller;
 
 import org.example.mapper.ImageMapper;
 import org.example.pojo.*;
+import org.example.service.DynamicService;
 import org.example.utils.AliOSSUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -9,9 +10,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 //@Slf4j
@@ -26,6 +30,9 @@ public class UploadController {
 
     @Autowired
     private ImageMapper imageMapper;
+
+    @Autowired
+    DynamicService dynamicService;
 
     @PostMapping("/upload")
     public Result upload(MultipartFile image) throws Exception {
@@ -78,6 +85,60 @@ public class UploadController {
         } catch (IOException e) {
             e.printStackTrace();
             return "File upload failed!";
+        }
+    }
+
+    @PostMapping("/uploadoss")
+    public Result uploadoss(MultipartFile file) {
+        if (file.isEmpty()) {
+            return Result.error("Please select a file to upload.");
+        }
+
+        ArrayList<Dynamic> res = new ArrayList<>();
+        try {
+            byte[] bytes = file.getBytes();
+            File uploadedFile = new File(DOWNLOADS_DIR + "uploadoss/" + file.getOriginalFilename());
+            file.transferTo(uploadedFile);
+
+            // 假设你有一个名为script.py的Python脚本
+            String pythonScriptPath = "/Users/joe.cheng/oss/main.py";
+
+            ProcessBuilder processBuilder = new ProcessBuilder("python3", pythonScriptPath);
+            processBuilder.redirectErrorStream(true);
+
+            try {
+                Process process = processBuilder.start();
+
+                // 读取Python脚本的输出
+                BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
+                String line;
+
+                Dynamic dynamic = new Dynamic();
+                while ((line = reader.readLine()) != null) {
+                    System.out.println(line);
+                    String[] split = line.split(" ");
+                    if (line.contains("https://pic.to8to.com")) {
+                        dynamic.setContent(split[0]);
+                        dynamic.setImgUrl(split[1]);
+                        res.add(dynamic);
+                    }
+                }
+                dynamicService.insert(dynamic);
+
+                // 等待Python脚本执行完成
+                int exitCode = process.waitFor();
+                if (exitCode != 0) {
+                    System.out.println("Python script exited with error code: " + exitCode);
+                }
+
+            } catch (IOException | InterruptedException e) {
+                e.printStackTrace();
+            }
+
+            return Result.success(res);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return Result.error("File upload failed!");
         }
     }
 }
