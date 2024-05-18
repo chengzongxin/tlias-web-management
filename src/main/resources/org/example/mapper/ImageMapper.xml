@@ -5,7 +5,7 @@
 <mapper namespace="org.example.mapper.ImageMapper">
 
     <insert id="insert">
-        insert into image_table(url, size, create_time) VALUES (#{url}, #{size}, #{createTime})
+        insert into image_table(url, name, size, create_time) VALUES (#{url}, #{name}, #{size}, #{createTime})
     </insert>
     <select id="list">
         select * from image_table

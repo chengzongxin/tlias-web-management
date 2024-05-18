@@ -94,7 +94,7 @@ public class UploadController {
             return Result.error("Please select a file to upload.");
         }
 
-        ArrayList<Dynamic> res = new ArrayList<>();
+        ArrayList<Image> res = new ArrayList<>();
         try {
             byte[] bytes = file.getBytes();
             File uploadedFile = new File(DOWNLOADS_DIR + "uploadoss/" + file.getOriginalFilename());
@@ -116,12 +116,18 @@ public class UploadController {
 
                 while ((line = reader.readLine()) != null) {
                     System.out.println(line);
-                    String[] split = line.split(" ");
                     if (line.contains("https://pic.to8to.com")) {
-                        Dynamic dynamic = new Dynamic();
-                        dynamic.setContent(split[0]);
-                        dynamic.setImgUrl(split[1]);
-                        res.add(dynamic);
+                        String[] split = line.split(",");
+                        int size = (int) file.getSize();
+                        Image image = new Image();
+                        String path = split[0];
+                        image.setName(path.substring(path.lastIndexOf("/")+1));
+                        image.setUrl(split[1]);
+                        image.setSize(size);
+                        image.setCreateTime(LocalDateTime.now());
+
+                        res.add(image);
+                        imageMapper.insert(image);
                     }
                 }
 //                dynamicService.insert(dynamic);
