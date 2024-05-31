@@ -19,4 +19,9 @@ public class DynamicServiceImpl implements DynamicService {
     public Dynamic[] list() {
         return dynamicMapper.list();
     }
+
+    @Override
+    public void update(Dynamic dynamic) {
+        dynamicMapper.update(dynamic);
+    }
 }

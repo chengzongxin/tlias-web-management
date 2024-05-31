@@ -54,13 +54,14 @@ public class UploadController {
         //调用阿里云OSS工具类进行文件上传
         String url = aliOSSUtils.upload(file);
 
-        int size = (int) file.getSize();
+//        int size = (int) file.getSize();
 
-        Image image = new Image();
-        image.setUrl(url);
-        image.setSize(size);
-        image.setCreateTime(LocalDateTime.now());
-        imageMapper.insert(image);
+//        不插入数据库
+//        Image image = new Image();
+//        image.setUrl(url);
+//        image.setSize(size);
+//        image.setCreateTime(LocalDateTime.now());
+//        imageMapper.insert(image);
 //        log.info("文件上传完成,文件访问的url: {}", url);
         return Result.success(url);
     }

@@ -57,6 +57,7 @@ public class LogAspect {
         //方法返回值
         String returnValue = JSONObject.toJSONString(result);
 
+        if (result != null && result.getClass().isArray()) returnValue = "isArray";
         //操作耗时
         Long costTime = end - begin;
 

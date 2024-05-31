@@ -8,4 +8,6 @@ public interface DynamicMapper {
     void insert(Dynamic dynamic);
 
     Dynamic[] list();
+
+    void update(Dynamic dynamic);
 }

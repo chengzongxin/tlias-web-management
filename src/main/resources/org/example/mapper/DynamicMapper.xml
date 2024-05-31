@@ -6,6 +6,9 @@
     <insert id="insert">
         insert into dynamic(imgUrl, content) VALUES (#{imgUrl}, #{content})
     </insert>
+    <update id="update">
+        update dynamic set content = #{content} where id = #{id}
+    </update>
     <select id="list">
         select *
         from dynamic;

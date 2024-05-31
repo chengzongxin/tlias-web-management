@@ -25,4 +25,11 @@ public class DynamicController {
         return Result.success(dynamicService.list());
     }
 
+    @PostMapping("/update")
+    public Result update(@RequestBody Dynamic dynamic)
+    {
+        dynamicService.update(dynamic);
+        return Result.success();
+    }
+
 }
